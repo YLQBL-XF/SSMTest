@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sy.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="sy.model.User" >
+    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="userPassword" property="userpassword" jdbcType="VARCHAR" />
+    <result column="userEmail" property="useremail" jdbcType="VARCHAR" />
+    <result column="userNickname" property="usernickname" jdbcType="VARCHAR" />
+    <result column="userBirthday" property="userbirthday" jdbcType="TIMESTAMP" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="userPoints" property="userpoints" jdbcType="INTEGER" />
+    <result column="userRemark" property="userremark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userId, userName, userPassword, userEmail, userNickname, userBirthday, sex, userPoints, 
+    userRemark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sy.model.User" >
+    insert into user (userId, userName, userPassword, 
+      userEmail, userNickname, userBirthday, 
+      sex, userPoints, userRemark
+      )
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
+      #{useremail,jdbcType=VARCHAR}, #{usernickname,jdbcType=VARCHAR}, #{userbirthday,jdbcType=TIMESTAMP}, 
+      #{sex,jdbcType=INTEGER}, #{userpoints,jdbcType=INTEGER}, #{userremark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="sy.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="userpassword != null" >
+        userPassword,
+      </if>
+      <if test="useremail != null" >
+        userEmail,
+      </if>
+      <if test="usernickname != null" >
+        userNickname,
+      </if>
+      <if test="userbirthday != null" >
+        userBirthday,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="userpoints != null" >
+        userPoints,
+      </if>
+      <if test="userremark != null" >
+        userRemark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="usernickname != null" >
+        #{usernickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userbirthday != null" >
+        #{userbirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="userpoints != null" >
+        #{userpoints,jdbcType=INTEGER},
+      </if>
+      <if test="userremark != null" >
+        #{userremark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sy.model.User" >
+    update user
+    <set >
+      <if test="username != null" >
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        userPassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        userEmail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="usernickname != null" >
+        userNickname = #{usernickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userbirthday != null" >
+        userBirthday = #{userbirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="userpoints != null" >
+        userPoints = #{userpoints,jdbcType=INTEGER},
+      </if>
+      <if test="userremark != null" >
+        userRemark = #{userremark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sy.model.User" >
+    update user
+    set userName = #{username,jdbcType=VARCHAR},
+      userPassword = #{userpassword,jdbcType=VARCHAR},
+      userEmail = #{useremail,jdbcType=VARCHAR},
+      userNickname = #{usernickname,jdbcType=VARCHAR},
+      userBirthday = #{userbirthday,jdbcType=TIMESTAMP},
+      sex = #{sex,jdbcType=INTEGER},
+      userPoints = #{userpoints,jdbcType=INTEGER},
+      userRemark = #{userremark,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

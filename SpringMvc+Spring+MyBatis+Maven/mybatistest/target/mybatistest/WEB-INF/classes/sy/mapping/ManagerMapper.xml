@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sy.dao.ManagerMapper" >
+  <resultMap id="BaseResultMap" type="sy.model.Manager" >
+    <id column="managerId" property="managerid" jdbcType="INTEGER" />
+    <result column="managerName" property="managername" jdbcType="VARCHAR" />
+    <result column="managerPassword" property="managerpassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    managerId, managerName, managerPassword
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from manager
+    where managerId = #{managerid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from manager
+    where managerId = #{managerid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sy.model.Manager" >
+    insert into manager (managerId, managerName, managerPassword
+      )
+    values (#{managerid,jdbcType=INTEGER}, #{managername,jdbcType=VARCHAR}, #{managerpassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="sy.model.Manager" >
+    insert into manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="managerid != null" >
+        managerId,
+      </if>
+      <if test="managername != null" >
+        managerName,
+      </if>
+      <if test="managerpassword != null" >
+        managerPassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="managerid != null" >
+        #{managerid,jdbcType=INTEGER},
+      </if>
+      <if test="managername != null" >
+        #{managername,jdbcType=VARCHAR},
+      </if>
+      <if test="managerpassword != null" >
+        #{managerpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sy.model.Manager" >
+    update manager
+    <set >
+      <if test="managername != null" >
+        managerName = #{managername,jdbcType=VARCHAR},
+      </if>
+      <if test="managerpassword != null" >
+        managerPassword = #{managerpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where managerId = #{managerid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sy.model.Manager" >
+    update manager
+    set managerName = #{managername,jdbcType=VARCHAR},
+      managerPassword = #{managerpassword,jdbcType=VARCHAR}
+    where managerId = #{managerid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sy.dao.PostMapper" >
+  <resultMap id="BaseResultMap" type="sy.model.Post" >
+    <id column="postId" property="postid" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="topic" property="topic" jdbcType="VARCHAR" />
+    <result column="matter" property="matter" jdbcType="VARCHAR" />
+    <result column="postTime" property="posttime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    postId, userId, topic, matter, postTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from post
+    where postId = #{postid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from post
+    where postId = #{postid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="sy.model.Post" >
+    insert into post (postId, userId, topic, 
+      matter, postTime)
+    values (#{postid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR}, 
+      #{matter,jdbcType=VARCHAR}, #{posttime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="sy.model.Post" >
+    insert into post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="postid != null" >
+        postId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="topic != null" >
+        topic,
+      </if>
+      <if test="matter != null" >
+        matter,
+      </if>
+      <if test="posttime != null" >
+        postTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="postid != null" >
+        #{postid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="topic != null" >
+        #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="matter != null" >
+        #{matter,jdbcType=VARCHAR},
+      </if>
+      <if test="posttime != null" >
+        #{posttime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="sy.model.Post" >
+    update post
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="topic != null" >
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="matter != null" >
+        matter = #{matter,jdbcType=VARCHAR},
+      </if>
+      <if test="posttime != null" >
+        postTime = #{posttime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where postId = #{postid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="sy.model.Post" >
+    update post
+    set userId = #{userid,jdbcType=INTEGER},
+      topic = #{topic,jdbcType=VARCHAR},
+      matter = #{matter,jdbcType=VARCHAR},
+      postTime = #{posttime,jdbcType=TIMESTAMP}
+    where postId = #{postid,jdbcType=INTEGER}
+  </update>
+</mapper>
